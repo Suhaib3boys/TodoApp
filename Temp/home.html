@@ -1,0 +1,36 @@
+{% extends 'base.html'%}
+{% block menu %}
+<div class="container-fluid">
+    <div class="row p-1">
+        <div class="col-6 shadow pt-5 ">
+            <form method="POST">
+                {%csrf_token%}
+                <input type="text" name="task" placeholder="Task" class="col-6">
+                <input type="text" name="priority" placeholder="priority" class="col-3"><br><br>
+                <input type="date" name="date">
+                <input type="submit" class="btn btn-success col-2">
+            </form>
+        </div>
+        <div class="col-6 shadow ">
+            {% for i in views %}
+            <div class="card">
+                <div class="card-header text-center bg-dark text-white">
+                    {{i.priority}}
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>{{i.name}}</p>
+                         <p>{{i.date}}</p>
+
+                        <a href="{% url 'webapp:delete' i.id %}" class="btn btn-warning">Done</a>
+                        <a href="{% url 'webapp:update' i.id %}" class="btn btn-success">Update</a>
+
+                    </blockquote>
+                </div>
+            </div>
+            <br>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
